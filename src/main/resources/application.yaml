@@ -2,23 +2,13 @@ server:
   port: 8083
 
 spring:
+  profiles:
+    active: local
   application:
     name: order-service
+
   config:
     import: optional:configserver:http://localhost:8888
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/order_db
-    username: root
-    password: root
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
 eureka:
   client:
