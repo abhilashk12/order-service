@@ -1,18 +1,18 @@
-package com.techie.order_service.event;
+package com.techie.order_service.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderCreatedEvent {
+@Builder
+public class OrderResponse {
 
-    @Id
-    private Long orderId;
+    private Long id;
     private Long productId;
     private Integer quantity;
+    private String status;
 }

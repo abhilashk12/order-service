@@ -1,18 +1,34 @@
+#server:
+#  port: 8083
+#
+#spring:
+#  application:
+#    name: order-service
+#
+#  config:
+#    import: optional:configserver:${CONFIG_SERVER_URL}
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: ${EUREKA_URL}
+
 server:
   port: 8083
 
 spring:
   application:
     name: order-service
+  profiles:
+    active: local
 
   config:
-    import: optional:configserver:${CONFIG_SERVER_URL}
+    import: optional:configserver:http://localhost:8888
 
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL}
-
+      defaultZone: ${EUREKA_URL:http://discovery-server:8761/eureka}
 management:
   endpoints:
     web:
@@ -28,3 +44,15 @@ resilience4j:
         minimumNumberOfCalls: 3
         failureRateThreshold: 50
         waitDurationInOpenState: 10s
+
+  retry:
+    instances:
+      inventoryService:
+        maxAttempts: 3
+        waitDuration: 1s
+
+#  property	meaning
+#  slidingWindowSize-	how many calls to track
+#  failureRateThreshold-	% failure to open
+#  waitDurationInOpenState-	cooldown
+#  maxAttempts-	retry count

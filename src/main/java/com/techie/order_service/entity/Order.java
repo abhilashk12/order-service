@@ -3,13 +3,14 @@ package com.techie.order_service.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "orders")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Order {
 
     @Id
@@ -20,5 +21,9 @@ public class Order {
 
     private Integer quantity;
 
-    private String status; // CREATED, FAILED
+    private String status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }
