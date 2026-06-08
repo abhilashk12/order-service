@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -122,5 +123,14 @@ public class OrderServiceImpl implements OrderService {
     public String fallbackOrder(Long productId, Integer quantity, Exception ex) {
 
         return "Inventory service unavailable";
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 }
